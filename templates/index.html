@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InvoiceGen — Professional Invoice Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ── TOP NAV ───────────────────────────────── -->
+  <header class="nav">
+    <div class="nav-logo">⚡ InvoiceGen</div>
+    <span class="nav-badge">Free · No signup</span>
+  </header>
+
+  <!-- ── HERO ──────────────────────────────────── -->
+  <section class="hero">
+    <h1>Generate professional<br /><span class="accent">invoices instantly.</span></h1>
+    <p class="hero-sub">Fill the form → Get a PDF → Look like a pro.</p>
+  </section>
+
+  <!-- ── MAIN CARD ──────────────────────────────── -->
+  <main class="card-wrapper">
+    <div class="card">
+
+      <!-- Error banner (shown only when Flask sends an error) -->
+      {% if error %}
+      <div class="error-banner">⚠ {{ error }}</div>
+      {% endif %}
+
+      <!-- Form posts to /generate which returns the PDF file -->
+      <form action="/generate" method="POST" class="invoice-form">
+
+        <!-- ── SECTION 1: YOUR DETAILS ── -->
+        <div class="form-section">
+          <div class="section-label">01 — Your Details</div>
+          <div class="form-row">
+            <div class="field">
+              <label for="your_name">Your Name / Business <span class="req">*</span></label>
+              <input type="text" id="your_name" name="your_name"
+                     placeholder="Arjun Mehta Design Co." required />
+            </div>
+            <div class="field">
+              <label for="invoice_number">Invoice Number <span class="req">*</span></label>
+              <input type="text" id="invoice_number" name="invoice_number"
+                     placeholder="INV-001" value="INV-001" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION 2: CLIENT DETAILS ── -->
+        <div class="form-section">
+          <div class="section-label">02 — Client Details</div>
+          <div class="form-row">
+            <div class="field full-width">
+              <label for="client_name">Client Name / Company <span class="req">*</span></label>
+              <input type="text" id="client_name" name="client_name"
+                     placeholder="Acme Technologies Pvt. Ltd." required />
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION 3: SERVICE & AMOUNT ── -->
+        <div class="form-section">
+          <div class="section-label">03 — Service &amp; Amount</div>
+          <div class="form-row">
+            <div class="field" style="flex: 2;">
+              <label for="service_description">Service Description <span class="req">*</span></label>
+              <input type="text" id="service_description" name="service_description"
+                     placeholder="UI/UX Design for Mobile App (May 2025)" required />
+            </div>
+            <div class="field">
+              <label for="amount">Amount (USD) <span class="req">*</span></label>
+              <div class="input-prefix-wrap">
+                <span class="prefix">$</span>
+                <input type="number" id="amount" name="amount"
+                       placeholder="2500.00" step="0.01" min="0" required />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION 4: NOTES (optional) ── -->
+        <div class="form-section">
+          <div class="section-label">04 — Notes <span class="optional">(optional)</span></div>
+          <div class="field full-width">
+            <textarea id="notes" name="notes" rows="3"
+                      placeholder="e.g. Payment due within 30 days. Thank you for your business!"></textarea>
+          </div>
+        </div>
+
+        <!-- ── SUBMIT ── -->
+        <button type="submit" class="btn-generate">
+          <span class="btn-icon">📄</span>
+          Generate &amp; Download PDF
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ── FEATURES STRIP ── -->
+    <div class="features">
+      <div class="feat">✦ Professional layout</div>
+      <div class="feat">✦ Auto-dated</div>
+      <div class="feat">✦ Instant PDF download</div>
+      <div class="feat">✦ No data stored</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    Built with Flask + ReportLab · 2025
+  </footer>
+
+</body>
+</html>
