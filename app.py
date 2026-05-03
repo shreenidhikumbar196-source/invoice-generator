@@ -59,6 +59,7 @@ def generate():
     )
 
 
+port = int(os.environ.get("PORT", 5000))
+
 if __name__ == "__main__":
-    # Debug mode ON for development; set debug=False in production
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", port=port)
